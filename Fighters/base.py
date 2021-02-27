@@ -7,3 +7,12 @@ class Combatant:
         self.calcStats = self.baseStats
         self.modifiers = None
         self.effects = None
+
+    def attack(self, target):
+        damage = self.calcStats['STR'] - target.calcStats['DEF']
+        if damage < 0:
+            damage = 0
+        target.curHP = target.curHP - damage
+        if target.curHP < 0:
+            target.curHP = 0
+         

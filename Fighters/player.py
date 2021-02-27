@@ -28,10 +28,5 @@ class Player(Combatant):
         self.calcStats = self.baseStats # TO-DO
 
     def __str__(self):
-        string = {
-            'Name':self.name,
-            'Stats':self.baseStats,
-            'Class':self.jobclass,
-            'Sub-Class':self.subclass
-        }
-        return str(string)
+        string = "Name: " + self.name + '\n' + "HP: " + str(self.curHP) + '/' + str(self.calcStats["HP"])
+        return string + '\n'

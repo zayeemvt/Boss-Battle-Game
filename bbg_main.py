@@ -9,6 +9,12 @@ from Fighters.enemy import Enemy
 
 if __name__ == '__main__':
     print("Hello, world!")
-    myFighter = Player('Test')
-    print(myFighter)
+    myFighters = {'Player1':Player('Test'),'Player2':Player('Catch')}
+    print(myFighters['Player1'])
+    print(myFighters['Player2'])
+    while(myFighters['Player2'].curHP > 0):
+        myFighters['Player1'].attack(myFighters['Player2'])
+        print(myFighters['Player1'])
+        print(myFighters['Player2'])
+    
     
