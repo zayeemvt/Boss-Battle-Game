@@ -9,9 +9,8 @@ from Fighters.enemy import *
 
 if __name__ == '__main__':
     print("Hello, world!")
-    classSelect = ClassManager()
-    myFighters = [Player('Test', classSelect.classes['Mage'], classSelect.classes['Thief']),
-                    Player('Catch', classSelect.classes['Warrior'], classSelect.classes['Knight'])]
+    myFighters = [Player('Test', 'Warrior', 'Cleric'),
+                    Player('Catch', 'Knight', 'Knight')]
     print(myFighters[0])
     print(myFighters[0].calcStats)
     print(myFighters[1])

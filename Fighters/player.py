@@ -3,7 +3,7 @@ from .player_class import *
 from math import floor
 
 class Player(Combatant):
-    def __init__(self, name, jobclass = Warrior(), subclass = Warrior()):
+    def __init__(self, name, jobclass = 'Warrior', subclass = 'Warrior'):
         self.playerBase = {
             'HP':1500,
             'STR':120,
@@ -13,8 +13,8 @@ class Player(Combatant):
             'SPD':80
         }
         super().__init__(name, self.playerBase)
-        self.jobclass = jobclass
-        self.subclass = subclass
+        self.jobclass = PLAYER_CLASSES[jobclass]
+        self.subclass = PLAYER_CLASSES[subclass]
         self.numSkills = 5 # TO-DO
         self.skills = None
         self.statPoints = {

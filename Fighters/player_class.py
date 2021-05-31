@@ -162,6 +162,4 @@ class Thief(PlayerClass):
         self.skills = {}
         super().__init__(self.name, self.statModifiers, self.subClassMods, self.skills)
 
-class ClassManager():
-    def __init__(self):
-        self.classes = {'Warrior':Warrior(), 'Mage':Mage(), 'Knight':Knight(), 'Cleric':Cleric(), 'Thief':Thief()}
+PLAYER_CLASSES = {'Warrior':Warrior(), 'Mage':Mage(), 'Knight':Knight(), 'Cleric':Cleric(), 'Thief':Thief()}
