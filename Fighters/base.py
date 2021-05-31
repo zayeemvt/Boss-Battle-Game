@@ -4,8 +4,8 @@ class Combatant:
         self.curHP = base['HP']
         self.baseStats = base #HP, STR, MAG, DEF, RES, SPD
         self.calcStats = self.baseStats
-        self.modifiers = None
-        self.effects = None
+        self.modifiers = None # Stat modifiers (buffs and debuffs)
+        self.effects = None # Status effects
 
     def attack(self, target):
         damage = self.calcStats['STR'] - target.calcStats['DEF']

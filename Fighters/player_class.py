@@ -65,7 +65,7 @@ class Warrior(PlayerClass):
         }
         self.subClassMods = {
             'HP':0.44,
-            'STR':0.67,
+            'STR':0.66,
             'MAG':0.20,
             'DEF':0.33,
             'RES':0.25,
@@ -88,7 +88,7 @@ class Mage(PlayerClass):
         self.subClassMods = {
             'HP':0.33,
             'STR':0.20,
-            'MAG':0.67,
+            'MAG':0.66,
             'DEF':0.25,
             'RES':0.55,
             'SPD':0.44
@@ -111,7 +111,7 @@ class Knight(PlayerClass):
             'HP':0.55,
             'STR':0.33,
             'MAG':0.25,
-            'DEF':0.67,
+            'DEF':0.66,
             'RES':0.44,
             'SPD':0.20
         }
@@ -134,7 +134,7 @@ class Cleric(PlayerClass):
             'STR':0.25,
             'MAG':0.44,
             'DEF':0.55,
-            'RES':0.67,
+            'RES':0.66,
             'SPD':0.33
         }
         self.skills = {}
@@ -157,7 +157,11 @@ class Thief(PlayerClass):
             'MAG':0.55,
             'DEF':0.20,
             'RES':0.33,
-            'SPD':0.67
+            'SPD':0.66
         }
         self.skills = {}
         super().__init__(self.name, self.statModifiers, self.subClassMods, self.skills)
+
+class ClassManager():
+    def __init__(self):
+        self.classes = {'Warrior':Warrior(), 'Mage':Mage(), 'Knight':Knight(), 'Cleric':Cleric(), 'Thief':Thief()}
