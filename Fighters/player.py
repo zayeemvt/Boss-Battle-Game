@@ -3,7 +3,7 @@ from .player_class import *
 from math import floor
 
 class Player(Combatant):
-    def __init__(self, name, jobclass = 'Warrior', subclass = 'Warrior'):
+    def __init__(self, name, jobclass = 'warrior', subclass = 'warrior'):
         self.playerBase = {
             'HP':1500,
             'STR':120,
@@ -13,8 +13,14 @@ class Player(Combatant):
             'SPD':80
         }
         super().__init__(name, self.playerBase)
-        self.jobclass = PLAYER_CLASSES[jobclass]
-        self.subclass = PLAYER_CLASSES[subclass]
+        self.jobclass = None
+        self.subclass = None
+        self.setJobClass(jobclass)
+        self.setSubClass(subclass)
+        if self.jobclass == None:
+            self.setJobClass('warrior')
+        if self.subclass == None:
+            self.setSubClass('warrior')
         self.numSkills = 5 # TO-DO
         self.skills = None
         self.statPoints = {
@@ -25,6 +31,14 @@ class Player(Combatant):
             'RES':0,
             'SPD':0
         }
+        self.recalculateStats()
+        self.curHP = self.calcStats['HP']
+
+    def __str__(self):
+        string = "Name: " + self.name + '\n' + "HP: " + str(self.curHP) + '/' + str(self.calcStats["HP"])
+        return string + '\n'
+
+    def recalculateStats(self):
         HP = floor(self.playerBase['HP'] * (1 + self.jobclass.getHPmod() + self.subclass.getHPsubmod()))
         STR = floor(self.playerBase['STR'] * (1 + self.jobclass.getSTRmod() + self.subclass.getSTRsubmod()))
         MAG = floor(self.playerBase['MAG'] * (1 + self.jobclass.getMAGmod() + self.subclass.getMAGsubmod()))
@@ -32,8 +46,15 @@ class Player(Combatant):
         RES = floor(self.playerBase['RES'] * (1 + self.jobclass.getRESmod() + self.subclass.getRESsubmod()))
         SPD = floor(self.playerBase['SPD'] * (1 + self.jobclass.getSPDmod() + self.subclass.getSPDsubmod()))
         self.calcStats = {'HP':HP, 'STR':STR, 'MAG':MAG, 'DEF':DEF, 'RES':RES, 'SPD':SPD}
-        self.curHP = self.calcStats['HP']
 
-    def __str__(self):
-        string = "Name: " + self.name + '\n' + "HP: " + str(self.curHP) + '/' + str(self.calcStats["HP"])
-        return string + '\n'
+    def setJobClass(self, newclass):
+        if newclass.lower() in PLAYER_CLASSES:
+            self.jobclass = PLAYER_CLASSES[newclass.lower()]
+        else:
+            print("Main class not found")
+
+    def setSubClass(self, newclass):
+        if newclass.lower() in PLAYER_CLASSES:
+            self.subclass = PLAYER_CLASSES[newclass.lower()]
+        else:
+            print("Sub class not found")

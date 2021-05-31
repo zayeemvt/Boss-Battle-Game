@@ -9,11 +9,13 @@ from Fighters.enemy import *
 
 if __name__ == '__main__':
     print("Hello, world!")
-    myFighters = [Player('Test', 'Warrior', 'Cleric'),
-                    Player('Catch', 'Knight', 'Knight')]
+    myFighters = [Player('Test', 'Warrior', 'cLeric'),
+                    Player('Catch', 'Wnight', 'Anight')]
     print(myFighters[0])
+    print(myFighters[0].jobclass.name + ' ' + myFighters[0].subclass.name)
     print(myFighters[0].calcStats)
     print(myFighters[1])
+    print(myFighters[1].jobclass.name + ' ' + myFighters[1].subclass.name)
     print(myFighters[1].calcStats)
     while(myFighters[0].curHP > 0 and myFighters[1].curHP > 0):
         myFighters[0].attack(myFighters[1])
