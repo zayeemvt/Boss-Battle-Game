@@ -46,7 +46,7 @@ class GameSetup:
 
         if (command == "argNumLow"):
             print('Insufficient number of arguments')
-        else:
+        elif (command in self.commands):
             self.commands[command](payload)
 
         return state, self.players
@@ -56,19 +56,45 @@ class GameSetup:
         print("New character created")
 
     def updatePlayerClass(self, payload):
-        if (payload[0] not in self.players):
+        name = payload[0]
+        target = next((x for x in self.players if x.name == name), None)
+
+        if target == None:
             print("Player does not exist")
         else:
-            print("Player exists")
+            target.setJobClass(payload[1])
+            target.setSubClass(payload[2])
+            print("Classes updated")
+            
 
     def updatePlayerName(self, payload):
-        pass
+        name = payload[0]
+        target = next((x for x in self.players if x.name == name), None)
+
+        if target == None:
+            print("Player does not exist")
+        else:
+            target.updateName(payload[1])
+            print("Name updated")
 
     def updatePlayerStats(self, payload):
-        pass
+        name = payload[0]
+        target = next((x for x in self.players if x.name == name), None)
+
+        if target == None:
+            print("Player does not exist")
+        else:
+            target.setStatPoints(payload[1])
+            print("Name updated")
 
     def getPlayerInfo(self, payload):
-        pass
+        name = payload
+        target = next((x for x in self.players if x.name == name), None)
+
+        if target == None:
+            print("Player does not exist")
+        else:
+            print(target.name, target.jobclass.name, target.subclass.name, str(target.calcStats))
 
     def startBattle(self, payload):
         state = 'battle'
