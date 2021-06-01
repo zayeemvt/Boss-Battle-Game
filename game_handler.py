@@ -26,7 +26,15 @@ class GameHandler:
 
 class GameSetup:
     def __init__(self):
-        pass
+        self.commands = {
+            "newPlayer":self.addPlayer,
+            "updatePlayerClass":self.updatePlayerClass,
+            "updatePlayerName":self.updatePlayerName,
+            "updatePlayerStatPoints":self.updatePlayerStats,
+            "displayPlayerInfo":self.getPlayerInfo,
+            "savePlayerInfo":self.startBattle,
+        }
+        self.players = []
 
     def process(self, instruction, players):
         state = 'setup'
@@ -34,16 +42,37 @@ class GameSetup:
         command = instruction[0]
         payload = instruction[1]
 
+        self.players = players
+
         if (command == "argNumLow"):
             print('Insufficient number of arguments')
-        elif (command == "newPlayer"):
-            players.append(Player(payload[0], payload[1], payload[2]))
-            print("New character created")
-        elif (command == "savePlayerInfo"):
-            state = 'battle'
-            print("Character data saved")
+        else:
+            self.commands[command](payload)
 
-        return state, players
+        return state, self.players
+
+    def addPlayer(self, payload):
+        self.players.append(Player(payload[0], payload[1], payload[2]))
+        print("New character created")
+
+    def updatePlayerClass(self, payload):
+        if (payload[0] not in self.players):
+            print("Player does not exist")
+        else:
+            print("Player exists")
+
+    def updatePlayerName(self, payload):
+        pass
+
+    def updatePlayerStats(self, payload):
+        pass
+
+    def getPlayerInfo(self, payload):
+        pass
+
+    def startBattle(self, payload):
+        state = 'battle'
+        print("Character data saved")
 
 class GameBattle:
     def __init__(self):

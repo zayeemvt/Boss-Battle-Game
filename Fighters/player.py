@@ -50,11 +50,43 @@ class Player(Combatant):
     def setJobClass(self, newclass):
         if newclass.lower() in PLAYER_CLASSES:
             self.jobclass = PLAYER_CLASSES[newclass.lower()]
+            if (self.subclass != None):
+                self.recalculateStats()
+            return True
         else:
             print("Main class not found")
+            return False
 
     def setSubClass(self, newclass):
         if newclass.lower() in PLAYER_CLASSES:
             self.subclass = PLAYER_CLASSES[newclass.lower()]
+            self.recalculateStats()
+            return True
         else:
             print("Sub class not found")
+            return False
+
+    def updateName(self, newname):
+        self.name = str(newname)
+
+    def setStatPoints(self, statPoints):
+        if (len(statPoints) != 6):
+            print("Incorrect number of arguments")
+            return False
+        elif (not all(isinstance(x, int) for x in statPoints)):
+            print("Arguments must be numbers")
+            return False
+        else:
+            pointCount = sum(statPoints)
+            if (pointCount > 5):
+                print("Amount exceeds max stat points")
+                return False
+            else:
+                self.statPoints['HP'] = statPoints[0]
+                self.statPoints['STR'] = statPoints[1]
+                self.statPoints['MAG'] = statPoints[2]
+                self.statPoints['DEF'] = statPoints[3]
+                self.statPoints['RES'] = statPoints[4]
+                self.statPoints['SPD'] = statPoints[5]
+                self.recalculateStats()
+                return True
