@@ -83,9 +83,11 @@ class GameSetup:
 
         if target == None:
             print("Player does not exist")
+        elif sum(payload[1]) > 5:
+            print("Maximum stat points exceeded")
         else:
             target.setStatPoints(payload[1])
-            print("Name updated")
+            print("Stats updated")
 
     def getPlayerInfo(self, payload):
         name = payload

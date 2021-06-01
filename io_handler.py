@@ -15,9 +15,9 @@ class IOHandler:
         command = None
         payload = None
 
-        if(raw_data[0] in self.command_dict):
+        try:
             command, payload = self.command_dict.get(raw_data[0])(raw_data)
-        else:
+        except:
             print("Invalid command")
 
         return (command, payload)
@@ -27,9 +27,7 @@ class IOHandler:
         command = None
         payload = None
 
-        if len(raw_data) < 2:
-            command = "argNumLow"
-        else:
+        try:
             name = raw_data[1]
             jobclass = 'Warrior'
             subclass = 'Warrior'
@@ -42,6 +40,14 @@ class IOHandler:
                     subclass = raw_data[2]
             command = "newPlayer"
             payload = [name, jobclass, subclass]
+        except IndexError:
+            print("Insufficient number of arguments")
+            command = None
+            payload = None
+        except:
+            print("Unknown exception")
+            command = None
+            payload = None
 
         return command, payload
 
@@ -58,32 +64,35 @@ class IOHandler:
         command = None
         payload = None
 
-        if len(raw_data) < 3:
-            command = "argNumLow"
-        else:
+        try:
             name = raw_data[1]
 
             if raw_data[2] == "class":
-                if len(raw_data) < 5:
-                    command = "argNumLow"
-                else:
-                    command = "updatePlayerClass"
-                    payload = [name, raw_data[3], raw_data[4]]
+                command = "updatePlayerClass"
+                payload = [name, raw_data[3], raw_data[4]]
             elif raw_data[2] == "statpoints":
-                if len(raw_data) < 9:
-                    command = "argNumLow"
-                else:
-                    command = "updatePlayerStatPoints"
-                    statPoints = [raw_data[3], raw_data[4], raw_data[5], raw_data[6], raw_data[7], raw_data[8]]
-                    payload = [name, statPoints]
+                command = "updatePlayerStatPoints"
+                statPoints = [raw_data[3], raw_data[4], raw_data[5], raw_data[6], raw_data[7], raw_data[8]]
+                statPoints = list(map(int, statPoints))
+                payload = [name, statPoints]
             elif raw_data[2] == "name":
-                if len(raw_data) < 4:
-                    command = "argNumLow"
-                else:
-                    command = "updatePlayerName"
-                    payload = [name, raw_data[3]]
+                command = "updatePlayerName"
+                payload = [name, raw_data[3]]
             else:
-                print("Invalid argument")      
+                print("Invalid argument")
+        except IndexError:
+            print("Insufficient number of arguments")
+            command = None
+            payload = None
+        except TypeError:
+            print("Integers must be used for stat point allocation")
+            command = None
+            payload = None
+        except:
+            print("Unknown exception")
+            command = None
+            payload = None
+        
 
         return command, payload
 
@@ -92,11 +101,13 @@ class IOHandler:
         command = None
         payload = None
 
-        if len(raw_data) < 2:
-            command = "argNumLow"
-        else:
+        try:
             command = "displayPlayerInfo"
             payload = raw_data[1]
+        except IndexError:
+            print("Insufficient number of arguments")
+            command = None
+            payload = None
 
         return command, payload
 
